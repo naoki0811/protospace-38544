@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   resources :prototypes do
     resources :comments, only: :create
   end
-  resources :users, only: :show
-  
+  resources :users, only: :show do
+    member do
+      get :follows, :followers
+    end
+    resource :relationships, only: [:create, :destroy]
+  end
 end
